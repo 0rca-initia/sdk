@@ -1,48 +1,51 @@
 import os
-from typing import Optional, Union
-import algosdk
-from algosdk import account, mnemonic, transaction
+from typing import Optional
 
 
 class DojoWallet:
-    """Wrapper for Algorand agent wallet operations."""
+    """Wrapper for Initia agent wallet operations."""
 
-    def __init__(self, private_key: Optional[str] = None, seed_phrase: Optional[str] = None):
+    def __init__(self, private_key: Optional[str] = None, mnemonic_phrase: Optional[str] = None):
         """
         Initializes a DojoWallet with a private key or mnemonic phrase.
         
         Args:
-            private_key: Hex string representation of the Algorand private key.
-            seed_phrase: 25-word Algorand mnemonic phrase.
+            private_key: Hex string representation of the Initia private key.
+            mnemonic_phrase: 24-word Initia mnemonic phrase.
         """
-        if seed_phrase:
-            self.private_key = mnemonic.to_private_key(seed_phrase)
+        if mnemonic_phrase:
+            # Placeholder for mnemonic to private key conversion
+            self.mnemonic = mnemonic_phrase
+            self.private_key = private_key or "placeholder_privkey"
         elif private_key:
             self.private_key = private_key
+            self.mnemonic = None
         else:
-            # Fallback to environment variable or raise error
+            # Fallback to environment variable
             env_key = os.getenv("DOJO_AGENT_PRIVATE_KEY")
             if env_key:
                 self.private_key = env_key
+                self.mnemonic = None
             else:
                 raise ValueError("DojoWallet must be initialized with a private key or mnemonic.")
 
-        self.address = account.address_from_private_key(self.private_key)
+        # Placeholder for Initia address derivation (initia1...)
+        self.address = os.getenv("DOJO_AGENT_ADDRESS", "initia1placeholderaddress")
 
     @classmethod
     def create_random(cls) -> 'DojoWallet':
-        """Generates a new random Algorand wallet."""
-        priv_key, _ = account.generate_account()
-        return cls(private_key=priv_key)
+        """Generates a new random Initia wallet (Placeholder)."""
+        return cls(private_key="random_placeholder")
 
-    def sign_transaction(self, txn: transaction.Transaction) -> transaction.SignedTransaction:
-        """Signs an Algorand transaction with the wallet's private key."""
-        return txn.sign(self.private_key)
+    def sign_transaction(self, txn_payload: dict) -> str:
+        """Signs an Initia transaction payload (Placeholder)."""
+        # In Initia/Cosmos, we'd typically use a library to sign the Doc/Tx
+        return "signed_payload_placeholder"
 
     def get_public_address(self) -> str:
-        """Returns the Algorand public address of the wallet."""
+        """Returns the Initia public address of the wallet."""
         return self.address
 
-    def get_mnemonic(self) -> str:
-        """Returns the 25-word mnemonic phrase for the wallet."""
-        return mnemonic.from_private_key(self.private_key)
+    def get_mnemonic(self) -> Optional[str]:
+        """Returns the mnemonic phrase for the wallet."""
+        return self.mnemonic

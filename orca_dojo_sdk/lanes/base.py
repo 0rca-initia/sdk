@@ -14,7 +14,7 @@ class BaseLane(BaseAgent, ABC):
         Args:
             lane_type: The specialization of this lane.
             config: The agent's unique configuration.
-            wallet: The agent's Algorand wallet.
+            wallet: The agent's Initia wallet.
         """
         super().__init__(config, wallet)
         self.lane_type = lane_type

@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Optional
+from typing import Optional, Any
 from orca_dojo_sdk.types import AgentConfig, Task, TaskResult
 from orca_dojo_sdk.wallet import DojoWallet
 
@@ -13,7 +13,7 @@ class BaseAgent(ABC):
         
         Args:
             config: The agent's unique configuration.
-            wallet: The agent's Algorand wallet for transaction signing.
+            wallet: The agent's Initia wallet for transaction signing.
         """
         self.config = config
         self.wallet = wallet or DojoWallet.create_random()
