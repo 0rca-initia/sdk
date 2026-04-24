@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "orca-dojo-sdk"
+version = "0.1.0"
+authors = [
+  { name="0rca Team", email="team@0rca.xyz" },
+]
+description = "Shared foundation for 0rca Swarm Dojo agents"
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "pydantic>=2.0.0",
+    "py-algorand-sdk>=2.0.0",
+    "httpx>=0.24.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["orca_dojo_sdk*"]
